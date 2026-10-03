@@ -1,0 +1,68 @@
+# ==============================================================================
+# RASS-BUILDER: Stage 11 Production .gitignore
+# ==============================================================================
+
+# Dependencies & Environments
+node_modules/
+dist/
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment & Credentials (NEVER commit real credentials)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# Local Databases & Persistent Storage
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+backend/data/*.db
+backend/data/*.db-wal
+backend/data/*.db-shm
+data/*.db
+data/*.db-wal
+data/*.db-shm
+
+# Temporary Uploads & Staging (Keep directories via .gitkeep)
+uploads/*
+!uploads/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Large PyTorch Models & Checkpoint Artifacts
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.onnx
+models/checkpoints/*.pt
+models/checkpoints/*.pth
+backend/models/checkpoints/*.pt
+backend/models/checkpoints/*.pth
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Logs & System Diagnostics
+*.log
+logs/
+.DS_Store
+Thumbs.db
+
+# IDE & Editor Configurations
+.vscode/
+.idea/
+*.swp
+*.swo

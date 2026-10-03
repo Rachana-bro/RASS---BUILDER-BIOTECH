@@ -1,0 +1,22 @@
+# ==============================================================================
+# RASS-BUILDER: Production Runtime Dependencies
+# Python 3.10+ / 3.11 / 3.12 compatible
+# ==============================================================================
+
+# Core Web Framework & ASGI Server
+fastapi>=0.115.0,<=0.143.0
+uvicorn>=0.30.0,<=0.55.0
+starlette>=0.38.0,<=1.8.0
+pydantic>=2.8.0,<=2.14.0
+pydantic_core>=2.20.0
+python-multipart>=0.0.9
+python-dotenv>=1.0.0
+
+# Scientific Computing & PyTorch DNA Transformer Foundation
+torch>=2.0.0
+numpy>=1.24.0
+
+# Security, Networking & Serializers
+PyYAML>=6.0
+anyio>=4.0.0
+httpx>=0.27.0

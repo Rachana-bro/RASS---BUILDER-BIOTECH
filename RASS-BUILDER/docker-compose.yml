@@ -1,0 +1,64 @@
+version: "3.8"
+
+# ==============================================================================
+# RASS-BUILDER: Production Multi-Service Orchestration
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # 1. Main Application Web & API Service
+  # ----------------------------------------------------------------------------
+  rass-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rass-builder-web
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - RASS_ENV=production
+      - RASS_LOG_LEVEL=INFO
+      - RASS_DB_PATH=/app/backend/data/rass_builder.db
+      - RASS_CORS_ORIGINS=http://localhost:3000,http://localhost:5173,http://localhost:8000
+      - RASS_MAX_UPLOAD_SIZE_MB=25
+      - RASS_RATE_LIMIT_ENABLED=1
+      - RASS_REQUIRE_AUTH=0
+    volumes:
+      - rass-data:/app/backend/data
+      - rass-uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ----------------------------------------------------------------------------
+  # 2. Dedicated Standalone Worker Service (Optional Decoupled Profile)
+  # ----------------------------------------------------------------------------
+  rass-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rass-builder-worker
+    restart: unless-stopped
+    command: ["python", "/app/backend/scripts/run_worker.py"]
+    environment:
+      - RASS_ENV=production
+      - RASS_LOG_LEVEL=INFO
+      - RASS_DB_PATH=/app/backend/data/rass_builder.db
+    volumes:
+      - rass-data:/app/backend/data
+      - rass-uploads:/app/uploads
+    depends_on:
+      rass-web:
+        condition: service_healthy
+    profiles:
+      - distributed
+
+volumes:
+  rass-data:
+    name: rass_builder_data
+  rass-uploads:
+    name: rass_builder_uploads

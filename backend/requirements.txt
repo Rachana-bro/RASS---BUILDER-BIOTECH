@@ -1,0 +1,13 @@
+# RASS-BUILDER Genomics Engine Backend Dependencies
+# HackSpire '26 Hackathon - Team RASS-BUILDER
+
+fastapi>=0.100.0
+uvicorn>=0.23.0
+pydantic>=2.0.0
+numpy>=1.24.0
+biopython>=1.81
+
+# Optional PyTorch Acceleration (CPU / CUDA):
+# For CPU only on Windows/Linux/Mac:
+# pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.0.0

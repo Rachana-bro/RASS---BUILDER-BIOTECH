@@ -1,0 +1,10 @@
+# ==============================================================================
+# RASS-BUILDER: Development & Testing Dependencies
+# ==============================================================================
+
+-r requirements.txt
+
+# Automated Testing Framework
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+coverage>=7.4.0
